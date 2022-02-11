@@ -11,18 +11,46 @@
             <tr>
               <td>Brightness</td>
               <td>{{ form.brightness }} (default: 1)</td>
+              <td>
+                {% if form.brightness.errors %}
+                    {% for error in form.brightness.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+              </td>
             </tr>
             <tr>
               <td>Contrast</td>
               <td>{{ form.contrast }} (default: 1)</td>
+              <td>
+                {% if form.contrast.errors %}
+                    {% for error in form.contrast.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+              </td>
             </tr>
             <tr>
               <td>Saturation</td>
               <td>{{ form.saturation }} (default: 1)</td>
+              <td>
+                {% if form.saturation.errors %}
+                    {% for error in form.saturation.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+              </td>
             </tr>
             <tr>
               <td>Hue</td>
               <td>{{ form.hue }} (default: 0)</td>
+              <td>
+                {% if form.hue.errors %}
+                    {% for error in form.hue.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+              </td>
             </tr>
             <tr>
               <td>Image</td>
