@@ -1,9 +1,9 @@
 import io
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from flask import Response
 
 from app import app
+from app.utils.create_figure import create_figure
 from app.utils.get_task_from_queue import get_task_from_queue
 from config import Configuration
 
@@ -27,12 +27,8 @@ def download_plot(job_id=None):
         labels = list(result.keys())
         data = list(result.values())
 
-        # make the plot canvas
-        fig, ax = plt.subplots()
-
-        # fill plot
-        ax.barh(labels, data, align='center')
-        ax.invert_yaxis()  # labels read top-to-bottom
+        # create the figure
+        fig = create_figure(labels, data)
 
         # save the plot in the memory buffer
         FigureCanvas(fig).print_png(output)
