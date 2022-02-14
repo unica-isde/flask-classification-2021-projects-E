@@ -1,8 +1,7 @@
-import redis
 from flask import Response, json
-from rq import Connection, Queue
 
 from app import app
+from app.utils.get_task_from_queue import get_task_from_queue
 from config import Configuration
 
 config = Configuration()
@@ -16,11 +15,7 @@ def download_results(job_id=None):
     result = {'Error': 'Result has expired'}
 
     if job_id is not None:
-        redis_url = Configuration.REDIS_URL
-        redis_conn = redis.from_url(redis_url)
-        with Connection(redis_conn):
-            q = Queue(name=Configuration.QUEUE)
-            task = q.fetch_job(job_id)
+        task = get_task_from_queue(job_id)
 
         # get the result as json
         result = dict(task.result)
@@ -29,6 +24,3 @@ def download_results(job_id=None):
         json.dumps(result),
         mimetype="text/json",
         headers={"Content-disposition": "attachment; filename=result.json"})
-
-
-
