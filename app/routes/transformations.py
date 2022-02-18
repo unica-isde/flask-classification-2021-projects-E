@@ -4,6 +4,8 @@ from app import app
 from app.forms.color_jitter_form import JitterImageForm
 from config import Configuration
 
+from ml import jitter_transformation
+
 config = Configuration()
 
 
@@ -20,15 +22,12 @@ def color_jitter_image():
         saturation = form.saturation.data
         contrast = form.contrast.data
         hue = form.hue.data
-        # TODO: Color jitter image API implementation
-        # image_name = jitter_transformation(image_id, brightness, contrast, saturation, hue)
 
-        # return render_template("jitter_image_output.html",
-        #                       image_id=image_id, brightness=brightness, image_name=image_name)
+        image_name = jitter_transformation(image_id, brightness, contrast, saturation, hue)
 
-        # temporarily do nothing
-        return
+        return render_template("color_jitter_output.html",
+                               image_id=image_id, brightness=brightness, image_name=image_name)
 
     # otherwise, it is a get request and should return the
     # form for image selection
-    return render_template('jitter_image_select.html', form=form)
+    return render_template('color_jitter_select.html', form=form)
