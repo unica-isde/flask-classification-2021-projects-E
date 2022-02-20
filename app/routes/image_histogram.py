@@ -1,11 +1,9 @@
-import redis
 from flask import render_template
-from rq import Connection, Queue
-from rq.job import Job
 
 from app import app
 from app.forms.histogram_form import HistogramForm
-from ml.classification_utils import classify_image
+from app.utils.create_folder_if_not_found import create_folder_if_not_found
+from app.utils.make_histogram_plot import make_histogram_plot
 from config import Configuration
 
 config = Configuration()
@@ -17,23 +15,20 @@ def image_histogram():
     It calls the job queue to assign the task to worker."""
     form = HistogramForm()
     if form.validate_on_submit():  # POST
+        # get image and convert it as np array
         image_id = form.image.data
 
-        redis_url = Configuration.REDIS_URL
-        redis_conn = redis.from_url(redis_url)
-        """
-        with Connection(redis_conn):
-            q = Queue(name=Configuration.QUEUE)
-            job = Job.create(classify_image, kwargs={
-                "img_id": image_id
-            })
-            task = q.enqueue_job(job)
-        """
-        # returns the image classification output from the specified model
-        # return render_template('classification_output.html', image_id=image_id, results=result_dict)
-        #return render_template("classification_output_queue.html", image_id=image_id, jobID=task.get_id())
-        return render_template("classification_output_queue.html", image_id=image_id)
+        # make the histogram plot
+        plt = make_histogram_plot(image_id)
 
-    # otherwise, it is a get request and should return the
-    # image and model selector
+        # save the plot as figure
+        histograms_directory = 'app/static/histograms'
+        create_folder_if_not_found(histograms_directory)
+        plot_id = '{}_histogram.png'.format(image_id.replace('.JPEG', ''))
+        plt.savefig('{}/{}'.format(histograms_directory, plot_id))
+
+        # if it is a post request, it shows the histogram plot
+        return render_template("histogram_output.html", image_id=image_id, plot_id=plot_id)
+
+    # otherwise, it is a get request and should return the image selector
     return render_template('histogram_select.html', form=form)
