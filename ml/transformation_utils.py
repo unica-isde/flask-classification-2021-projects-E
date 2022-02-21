@@ -50,6 +50,10 @@ def jitter_transformation(img_id: str,
     image_name = "{}_{}.jpeg".format(img_id.replace('.JPEG', ''), now_formatted)
     output_path = os.path.join(conf.transformed_images_folder_path, image_name)
 
+    # check if the "transformed_images" folder exists
+    if not os.path.exists(conf.transformed_images_folder_path):
+        os.mkdir(conf.transformed_images_folder_path)
+
     torchvision.utils.save_image(preprocessed, fp=output_path)
 
     return image_name
