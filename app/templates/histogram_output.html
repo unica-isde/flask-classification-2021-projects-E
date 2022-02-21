@@ -21,7 +21,15 @@
     </div>
 
     <div class="card ">
-        <a class="btn btn-primary" href="/classifications" role="button">Back</a>
+        <a class="btn btn-primary" href="/image_histogram" role="button">Back</a>
+    </div>
+
+    <div>
+        <div>
+            <img class="large-front-thumbnail"
+                 src="{{ url_for('static', filename='histograms/'+plot_rgb_id) }} "
+                 alt={{ plot_id }}/>
+        </div>
     </div>
 
     <div>
