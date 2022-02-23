@@ -55,6 +55,13 @@
             <tr>
               <td>Image</td>
               <td>{{ form.image }}</td>
+              <td>
+                {% if form.image.errors %}
+                    {% for error in form.image.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+              </td>
             </tr>
           </tbody>
         </table>
