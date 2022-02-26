@@ -1,5 +1,4 @@
 import os
-from flask import request, redirect
 from werkzeug.utils import secure_filename
 from config import Configuration
 
@@ -41,7 +40,15 @@ def uploads_folder():
     return img_folder
 
 
-def image_processing(image):
+def saving_image(image, filename, img_folder):
+    """
+    Save the uploaded image with filename in the img_folder
+    """
+    image.save(os.path.join(img_folder, filename))
+    image.close()
+
+
+def image_information(image):
     """
     Return the filename and the path of the uploaded image
     """
@@ -49,7 +56,6 @@ def image_processing(image):
     filename = secure_filename(image.filename)
     img_folder = uploads_folder()
 
-    image.save(os.path.join(img_folder, filename))
-    image.close()
+    saving_image(image, filename, img_folder)
 
     return filename, img_folder

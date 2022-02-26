@@ -4,7 +4,7 @@ from rq import Connection, Queue
 from rq.job import Job
 from app import app
 from app.forms.classification_form import ClassificationForm
-from app.utils.image_processing import image_processing, valid_image
+from app.utils.image_processing import image_information, valid_image
 from ml.classification_utils import classify_image
 from config import Configuration
 
@@ -23,7 +23,7 @@ def upload_file():
         if not valid_image(image):
             return redirect(request.url)
 
-        filename, img_folder = image_processing(image)
+        filename, img_folder = image_information(image)
 
         model_id = form.model.data
         redis_url = Configuration.REDIS_URL
