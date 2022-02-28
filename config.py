@@ -19,3 +19,6 @@ class Configuration:
 
     REDIS_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/0"
     QUEUE = "classification"
+
+    # transformations
+    transformed_images_folder_path = os.path.join(project_root, 'app/static/transformed_images')
