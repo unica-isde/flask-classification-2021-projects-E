@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        .large-front-thumbnail {
+            position: relative;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+    </style>
+    <div>
+        <div>
+            <img class="large-front-thumbnail"
+                 src="{{ url_for('static', filename='imagenet_subset/'+image_id) }} "
+                 alt={{ image_id }}/>
+        </div>
+    </div>
+
+    <div class="card ">
+        <a class="btn btn-primary" href="/image_histogram" role="button">Back</a>
+    </div>
+
+    <div>
+        <div>
+            <img class="large-front-thumbnail"
+                 src="{{ url_for('static', filename='histograms/'+plot_rgb_id) }} "
+                 alt={{ plot_id }}/>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <img class="large-front-thumbnail"
+                 src="{{ url_for('static', filename='histograms/'+plot_id) }} "
+                 alt={{ plot_id }}/>
+        </div>
+    </div>
+
+{% endblock %}
+
