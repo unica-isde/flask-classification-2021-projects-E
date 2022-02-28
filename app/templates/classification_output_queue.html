@@ -34,6 +34,16 @@
 
                 <a class="btn btn-dark" href="/classifications" role="button">Back</a>
             </div>
+
+            <div class="card">
+                <a class="btn btn-dark" id="resultBt" href="/download_result/{{ jobID }}" role="button">
+                    Download results</a>
+            </div>
+
+            <div class="card">
+                <a class="btn btn-dark" id="plotBt" href="/download_plot/{{ jobID }}" role="button">
+                    Download plots</a>
+            </div>
         </div>
     </div>
     <script src="{{ url_for("static", filename="poll.js") }}" id="polling" jobid={{ jobID }}></script>
