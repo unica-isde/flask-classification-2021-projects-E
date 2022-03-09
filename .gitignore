@@ -17,3 +17,6 @@ build/
 
 # this should be downloaded during repo setup
 app/static/imagenet_subset
+
+# this folder contains the histograms
+app/static/histograms
