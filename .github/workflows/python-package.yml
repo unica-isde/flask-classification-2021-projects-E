@@ -52,7 +52,7 @@ jobs:
         pytest
       env:
         # The hostname used to communicate with the Redis service container
-        REDIS_HOST: redis
+        REDIS_HOST: localhost
         # The default Redis port
         REDIS_PORT: 6379
         
